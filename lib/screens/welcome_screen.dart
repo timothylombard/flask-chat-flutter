@@ -10,19 +10,27 @@ class WelcomeScreen extends StatefulWidget {
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProviderStateMixin{
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with SingleTickerProviderStateMixin{
   AnimationController controller;
+  Animation animation;
 
   @override
   void initState() {
     super.initState();
 
     controller = AnimationController(
-      vsync: this,
       duration: Duration(seconds: 1),
-      
+      vsync: this,);
 
-    );
+    animation = ColorTween(begin: Colors.blueGrey, end: Colors.white).animate(controller);
+
+    controller.forward();
+
+    controller.addListener(() {
+      setState(() {});
+      //print(animation.value);
+    });
   }
 
 
@@ -52,9 +60,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                   onTap:() {
                     print("Tap Event");
                   },
-                  text: ['Flash Chat'],
+                  text: ['Flash Chat',
+                  'Login or Register'],
                   textStyle: TextStyle(
-                    fontSize: 45.0,
+                    color: Colors.black ,
+                    fontSize: 25.0,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
